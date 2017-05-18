@@ -12,6 +12,7 @@ var myInit = {
 var apiChecklist = 'https://qa-api.checklists.xogrp.com/wedding-checklist/api/v5';
 var db;
 var STORE = 'tasks';
+var taskList, note;
 
 window.onload = () => {
   var request = indexedDB.open('TestDatabase');
@@ -31,13 +32,14 @@ window.onload = () => {
     );
     addData();
   };
+
+  taskList = document.getElementById('task-list');
+  note = document.getElementById('notifications');
 }
 
 function displayData() {
   // first clear the content of the task list so that you don't get a huge long list of duplicate stuff each time
   //the display is updated.
-  var taskList = document.getElementById('task-list');
-  var note = document.getElementById('notifications');
 
   taskList.innerHTML = '';
 
@@ -83,13 +85,13 @@ function deleteItem(event) {
 
   // open a database transaction and delete the task, finding it by the name we retrieved above
   var transaction = db.transaction([STORE], "readwrite");
-  var request = transaction.objectStore("toDoList").delete(dataTask);
+  var request = transaction.objectStore(STORE).delete(dataTask);
 
   // report that the data item has been deleted
   transaction.oncomplete = function() {
     // delete the parent of the button, which is the list item, so it no longer is displayed
     event.target.parentNode.parentNode.removeChild(event.target.parentNode);
-    note.innerHTML += '<li>Task \"' + dataTask + '\" deleted.</li>';
+    document.getElementById('notifications').innerHTML += '<li>Task \"' + dataTask + '\" deleted.</li>';
   };
 };
 
