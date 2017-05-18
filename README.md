@@ -5,5 +5,5 @@
 - `npm install`
 - `gulp generate-service-worker`
 - `node app`
-- `open http://localhost:3000`
+- `open http://localhost:3000/app`
 
