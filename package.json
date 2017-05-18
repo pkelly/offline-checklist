@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "* Demo - https://pkelly.github.io/offline-checklist/",
   "main": "index.js",
-  "scripts": {
+  "scripts": { 
+    "bR": "gulp generate-service-worker && node app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
