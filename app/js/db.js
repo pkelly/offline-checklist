@@ -53,22 +53,10 @@ function displayData() {
       var listItem = document.createElement('li');
 
       // build the to-do list entry and put it into the list item via innerHTML.
-      listItem.innerHTML = cursor.value.name + ' — ' + cursor.value.due_date;
-
+      listItem.innerHTML = cursor.value.name;
       // put the item item inside the task list
       taskList.appendChild(listItem);
-
-      // create a delete button inside each list item, giving it an event handler so that it runs the deleteButton()
-      // function when clicked
-      var deleteButton = document.createElement('button');
-      listItem.appendChild(deleteButton);
-      deleteButton.innerHTML = 'X';
-      // here we are setting a data attribute on our delete button to say what task we want deleted if it is clicked!
-      deleteButton.setAttribute('data-task', cursor.value.id);
-      deleteButton.onclick = function(event) {
-        deleteItem(event);
-      }
-
+      
       // continue on to the next item in the cursor
       cursor.continue();
 
@@ -78,22 +66,6 @@ function displayData() {
     }
   }
 }
-
-function deleteItem(event) {
-  // retrieve the name of the task we want to delete
-  var dataTask = event.target.getAttribute('data-task');
-
-  // open a database transaction and delete the task, finding it by the name we retrieved above
-  var transaction = db.transaction([STORE], "readwrite");
-  var request = transaction.objectStore(STORE).delete(dataTask);
-
-  // report that the data item has been deleted
-  transaction.oncomplete = function() {
-    // delete the parent of the button, which is the list item, so it no longer is displayed
-    event.target.parentNode.parentNode.removeChild(event.target.parentNode);
-    document.getElementById('notifications').innerHTML += '<li>Task \"' + dataTask + '\" deleted.</li>';
-  };
-};
 
 function addData() {
   var note = document.getElementById('notifications');
