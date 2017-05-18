@@ -3,6 +3,7 @@
 'use strict';
 
 var gulp = require('gulp');
+var fileGlobs = 'js,html,css,png,jpg,gif,svg,eot,ttf,woff';
 
 gulp.task('generate-service-worker', function(callback) {
   var path = require('path');
@@ -10,7 +11,11 @@ gulp.task('generate-service-worker', function(callback) {
   var rootDir = 'app';
 
   swPrecache.write(`${rootDir}/service-worker.js`, {
-    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff}'],
+    staticFileGlobs: [rootDir + '/**/*.{' + fileGlobs + '}'],
     stripPrefix: rootDir + '/'
   }, callback);
+});
+
+gulp.task('default', function() {
+  gulp.watch('./app/**/*.{' + fileGlobs + '}', ['generate-service-worker']);
 });

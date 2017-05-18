@@ -3,38 +3,73 @@ var myHeaders = new Headers({
   'Accept':'application/json',
   'xo-session-token': 'cab74b0e725d1086ee05d982fe6fe7b1e00d1437089dedc5c1543c13f2c2024b'
 });
-
 var myInit = {
   method: 'GET',
   headers: myHeaders,
   mode: 'cors',
   cache: 'default'
 };
-
 var apiChecklist = 'https://qa-api.checklists.xogrp.com/wedding-checklist/api/v5';
-
 var db;
-var request = indexedDB.open('TestDatabase');
-var note = document.getElementById('notifications');
+var STORE = 'tasks';
+var taskList, note;
 
-request.onerror = function(evt) {
-  console.log("Database error code: " + evt.target.errorCode);
-};
+window.onload = () => {
+  var request = indexedDB.open('TestDatabase');
+  request.onerror = function(evt) {
+    console.log("Database error code: " + evt.target.errorCode);
+  };
 
-request.onsuccess = function(evt) {
-  db = request.result;
-};
+  request.onsuccess = function(evt) {
+    db = request.result;
+    displayData();
+  };
 
-request.onupgradeneeded = function (evt) {
-  var objectStore = evt.currentTarget.result.createObjectStore(
-    "tasks",
-    { keyPath: "id", autoIncrement: true }
-  );
-  addData();
-};
+  request.onupgradeneeded = function (evt) {
+    var objectStore = evt.currentTarget.result.createObjectStore(
+      "tasks",
+      { keyPath: "id", autoIncrement: true }
+    );
+    addData();
+  };
+
+  taskList = document.getElementById('task-list');
+  note = document.getElementById('notifications');
+}
+
+function displayData() {
+  // first clear the content of the task list so that you don't get a huge long list of duplicate stuff each time
+  //the display is updated.
+
+  taskList.innerHTML = '';
+
+  // Open our object store and then get a cursor list of all the different data items in the IDB to iterate through
+  var objectStore = db.transaction([STORE]).objectStore(STORE);
+  objectStore.openCursor().onsuccess = function(event) {
+    var cursor = event.target.result;
+    // if there is still another cursor to go, keep runing this code
+    if(cursor) {
+      // create a list item to put each data item inside when displaying it
+      var listItem = document.createElement('li');
+
+      // build the to-do list entry and put it into the list item via innerHTML.
+      listItem.innerHTML = cursor.value.name;
+      // put the item item inside the task list
+      taskList.appendChild(listItem);
+      
+      // continue on to the next item in the cursor
+      cursor.continue();
+
+      // if there are no more cursor items to iterate through, say so, and exit the function
+    } else {
+      note.innerHTML += '<li>Entries all displayed.</li>';
+    }
+  }
+}
 
 function addData() {
-  var STORE = 'tasks';
+  var note = document.getElementById('notifications');
+
   fetch(apiChecklist + '/tasklist?application=', myInit)
     .then((response) => {
       return response.json();
