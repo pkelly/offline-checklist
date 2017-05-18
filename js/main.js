@@ -1,3 +1,4 @@
+// cacheing
 if(!'caches' in window) {
   alert('Uh noes! No Cache API');
 }
@@ -33,3 +34,19 @@ caches.open('test-cache').then(function(cache) {
     console.log(matchedResponse);
   });
 });
+
+// speed test
+var connectionTestInterval;
+
+function checkConnection() {
+  if(!navigator.onLine) {
+    alert('Connection has been lost.')
+    clearInterval(connectionTestInterval);
+  }
+}
+
+function InitiateSpeedDetection() {
+  connectionTestInterval = setInterval(checkConnection, 1000);
+};    
+
+window.addEventListener('load', InitiateSpeedDetection, false);
