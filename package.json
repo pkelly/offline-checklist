@@ -18,5 +18,9 @@
   "homepage": "https://github.com/pkelly/offline-checklist#readme",
   "dependencies": {
     "express": "^4.15.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "sw-precache": "^5.1.1"
   }
 }
