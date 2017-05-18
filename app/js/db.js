@@ -49,14 +49,9 @@ function displayData() {
     var cursor = event.target.result;
     // if there is still another cursor to go, keep runing this code
     if(cursor) {
-      // create a list item to put each data item inside when displaying it
-      var listItem = document.createElement('li');
-
-      // build the to-do list entry and put it into the list item via innerHTML.
-      listItem.innerHTML = cursor.value.name;
       // put the item item inside the task list
-      taskList.appendChild(listItem);
-      
+      taskList.appendChild(View.getListItem(cursor.value));
+
       // continue on to the next item in the cursor
       cursor.continue();
 

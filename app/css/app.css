@@ -1,3 +1,55 @@
-html {
-  font-size: 22px;
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
 }
+
+html {
+  font-size: 20px;
+}
+
+#task-list {
+  padding: 0;
+  margin: 0 10px;
+  list-style: none;
+}
+
+li {
+  background-color: #eee;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 5px;
+}
+
+li input[type="checkbox"] {
+  display: none;
+}
+
+li input[checked="checked"] + .check-circle {
+  background-color: #4799B2;
+}
+
+.check-circle {
+  background-color: rgb(71, 153, 178);
+  border: 1px solid transparent;
+  position: relative;
+  min-width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: inline-block;
+  cursor: pointer;
+  background: #e5e5e5;
+}
+
+.item-name {
+  vertical-align: top;
+  line-height: 34px;
+}
+
+.list-group-item {
+  padding: 0;
+  border: none;
+  margin-bottom: 5px;
+}
+
