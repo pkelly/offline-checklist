@@ -1,0 +1,9 @@
+<script>
+  // caches.open('test-cache').then(function(cache) {
+  //   cache.delete('/');
+  //   cache.delete('/css/app.css');
+  // });
+  caches.delete('test-cache').then(function() {
+    alert('Cache successfully deleted!');
+  });
+</script>
