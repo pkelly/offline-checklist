@@ -21,7 +21,10 @@
           <button id="clear-cache">Clear Cache</button>
         </div>
 
+        <label id="notifications"></label>
+
         <script src="js/service-worker-registration.js"></script>
+        <script src="js/db.js"></script>
         <script>
           function sendMessage(message) {
             return new Promise(function(resolve, reject) {
