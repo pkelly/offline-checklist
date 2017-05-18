@@ -1,0 +1,22 @@
+{
+  "name": "offline-checklist",
+  "version": "1.0.0",
+  "description": "* Demo - https://pkelly.github.io/offline-checklist/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pkelly/offline-checklist.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pkelly/offline-checklist/issues"
+  },
+  "homepage": "https://github.com/pkelly/offline-checklist#readme",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}
