@@ -1,0 +1,14 @@
+{
+  "short_name": "Checklist",
+  "name": "Checklist from the Knot",
+  "start_url": "/app/index.html?launcher=true",
+  "icons": [   
+    {
+      "src": "/app/images/icon.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    }
+  ],
+  "theme_color": "#72caf2",
+  "display": "standalone"
+}
