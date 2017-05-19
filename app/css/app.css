@@ -47,6 +47,21 @@ input.checked + .check-circle {
   background-color: #4799B2;
 }
 
+input.checked + .check-circle::after {
+  content: '';
+  position: absolute;
+  top: 7px;
+  left: 5px;
+  width: 16px;
+  height: 8px;
+  border: 2px solid #e5e5e5;
+  border-top: none;
+  border-right: none;
+  background: transparent;
+  transform: rotate(-45deg);
+  transition: all 0.2s;
+}
+
 .check-circle {
   background-color: rgb(71, 153, 178);
   border: 1px solid transparent;
