@@ -93,6 +93,8 @@ input.checked + .check-circle::after {
   color: white;
   text-align: center;
   font-weight: bold;
+  border-radius: 4px;
+  line-height: 40px;
 }
 .status-connected {
   background-color: green;
