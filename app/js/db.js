@@ -115,10 +115,39 @@ function updateChecklist(id, completed) {
   if (navigator.onLine) {
     fetch(apiChecklist + '/tasks/' + id + '?application=checklists-ui', request).then(() => {
       console.log('live');
+      updateChecklistRecordinDB(id, completed);
     });
   }
   else {
     console.log('cached');
   }
+}
 
+function updateChecklistRecordinDB(id, completed) {
+  var objectStore = db.transaction([STORE], "readwrite").objectStore(STORE);
+  var request = objectStore.get(id);
+  request.onerror = function(event) {
+    // Handle errors!
+  };
+  request.onsuccess = function(event) {
+    // Get the old value that we want to update
+    var data = event.target.result;
+
+    // update the value(s) in the object that you want to change
+    if (completed) {
+      data.completed_at = new Date();
+    }
+    else {
+      data.completed_at = null;
+    }
+    
+    // Put this updated object back into the database.
+    var requestUpdate = objectStore.put(data);
+    requestUpdate.onerror = function(event) {
+      // Do something with the error
+    };
+    requestUpdate.onsuccess = function(event) {
+      // Success - the data is updated!
+    };
+  };
 }
