@@ -23,6 +23,7 @@ li {
   border-radius: 4px;
   margin-bottom: 5px;
   border: 1px solid transparent;
+  transition: border .5s;
 }
 
 li.pending {

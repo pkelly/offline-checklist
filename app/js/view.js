@@ -19,6 +19,14 @@ View = {
       row.className = "pending";
     }
   },
+  completedUpdate: function(id) {
+    var row = document.getElementById("row-" + id);
+    row.className = "updated";
+
+    setTimeout(function() {
+      row.className = "";
+    }, 2000);
+  },
   getListItem: function(row) {
     var listItem = document.createElement('li');
     var id = "row-" + row.id;
