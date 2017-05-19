@@ -7,6 +7,11 @@ html {
   font-size: 20px;
 }
 
+body {
+  max-width: 600px;
+  margin: 10px auto;
+}
+
 #task-list {
   padding: 0;
   margin: 0 10px;
@@ -16,15 +21,29 @@ html {
 li {
   background-color: #eee;
   border-radius: 4px;
-  padding: 10px;
   margin-bottom: 5px;
+  border: 1px solid transparent;
+}
+
+li.pending {
+  border-color: #F0532D;
+}
+
+li.updated {
+  border-color: rgb(28, 164, 32);
+}
+
+li label {
+  padding: 10px;
+  display: block;
+  cursor: pointer;
 }
 
 li input[type="checkbox"] {
   display: none;
 }
 
-li input[checked="checked"] + .check-circle {
+input.checked + .check-circle {
   background-color: #4799B2;
 }
 

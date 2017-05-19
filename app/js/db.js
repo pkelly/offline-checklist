@@ -35,6 +35,7 @@ window.onload = () => {
 
   taskList = document.getElementById('task-list');
   note = document.getElementById('notifications');
+  View.init();
 }
 
 function displayData() {
