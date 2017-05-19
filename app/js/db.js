@@ -58,7 +58,7 @@ function displayData() {
 
       // if there are no more cursor items to iterate through, say so, and exit the function
     } else {
-      note.innerHTML += '<li>Entries all displayed.</li>';
+      //note.innerHTML += '<li>Entries all displayed.</li>';
     }
   }
 }
@@ -76,7 +76,7 @@ function addData() {
 
         // report on the success of opening the transaction
         transaction.oncomplete = function(event) {
-          note.innerHTML += '<li>Transaction completed: database modification finished.</li>';
+          //note.innerHTML += '<li>Transaction completed: database modification finished.</li>';
         };
 
         transaction.onerror = function(event) {
@@ -88,13 +88,14 @@ function addData() {
 
         objectStoreRequest.onsuccess = function(event) {
           // report the success of our new item going into the database
-          note.innerHTML += '<li>New item added to database.</li>';
+          //note.innerHTML += '<li>New item added to database.</li>';
         };
 
         // Return the mode this transaction has been opened in (should be "readwrite" in this case)
         transaction.mode;
 
       });
+      displayData();
     });
 }
 
