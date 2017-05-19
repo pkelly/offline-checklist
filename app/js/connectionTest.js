@@ -16,7 +16,7 @@ function checkConnection() {
 }
 
 function InitiateSpeedDetection() {
-  connectionTestInterval = setInterval(checkConnection, 2000);
-};    
+  connectionTestInterval = setInterval(checkConnection, 1000);
+};
 
 window.addEventListener('load', InitiateSpeedDetection, false);
