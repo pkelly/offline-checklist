@@ -23,7 +23,8 @@ li {
   border-radius: 4px;
   margin-bottom: 5px;
   border: 2px solid transparent;
-  transition: border .5s;
+  transition: outline 1s;
+  outline: none;
 }
 
 li.pending {
@@ -32,6 +33,10 @@ li.pending {
 
 li.updated {
   border-color: green;
+}
+
+li.blow-up {
+  outline: 10px solid white;
 }
 
 li label {

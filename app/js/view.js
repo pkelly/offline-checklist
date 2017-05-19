@@ -24,8 +24,11 @@ View = {
     row.className = "updated";
 
     setTimeout(function() {
-      row.className = "";
-    }, 2000);
+      row.className = "blow-up";
+      setTimeout(function() {
+        row.className = "";
+      }, 1000);
+    }, parseInt(Math.random() * 1000));
   },
   getListItem: function(row) {
     var listItem = document.createElement('li');
