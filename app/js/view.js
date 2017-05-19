@@ -16,10 +16,16 @@ View = {
     var listItem = document.createElement('li');
     var id = "row-" + row.id;
     listItem.id = id;
-    var checked = row.completed_at ? 'checked="checked"' : '';
+    var checked;
+    var checkedClass;
+
+    if (row.completed_at) {
+      checked = 'checked="checked"';
+      checkedClass = "checked";
+    }
 
     listItem.innerHTML = "<label>"
-      + "<input type='checkbox' data-id=" + row.id + " value='on' " + checked + ">"
+      + "<input type='checkbox' data-id=" + row.id + " value='on' " + checked + " class='" + checkedClass + "'>"
       + "<div class='check-circle'>"
       + "</div>"
       + "<span class='item-name'>"
