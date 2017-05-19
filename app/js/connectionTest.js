@@ -6,6 +6,7 @@ function checkConnection() {
     connectionStatusElement.classList.remove('status-disconnected');
     connectionStatusElement.classList.add('status-connected');
     connectionStatusElement.innerText = 'Status: Online';
+    syncChecklist();
   }
   else {
     connectionStatusElement.classList.remove('status-connected');

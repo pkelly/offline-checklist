@@ -98,12 +98,18 @@ function addData() {
     });
 }
 
-function updateChecklist(id, completed) {
+function submitChecklistUpdate(id, completed) {
   var payload = {
     application: "checklist-ui",
-    completed: completed,
     id: id
   };
+
+  if (completed) {
+    payload.completed = true;
+  }
+  else {
+    payload.uncompleted = true;
+  }
 
   var request = {
     method: 'PUT',
@@ -112,20 +118,24 @@ function updateChecklist(id, completed) {
     cache: 'default',
     body: JSON.stringify(payload)
   };
+
+  return fetch(apiChecklist + '/tasks/' + id + '?application=checklists-ui', request);
+}
+
+function updateChecklist(id, completed) {
   if (navigator.onLine) {
-    fetch(apiChecklist + '/tasks/' + id + '?application=checklists-ui', request).then(() => {
-      console.log('live');
+    submitChecklistUpdate(id, completed).then(() => {
       updateChecklistRecordinDB(id, completed);
-    });
+    })
   }
   else {
-    console.log('cached');
+    updateChecklistRecordinDB(id, completed, true);
   }
 }
 
-function updateChecklistRecordinDB(id, completed) {
+function updateChecklistRecordinDB(id, completed, pending) {
   var objectStore = db.transaction([STORE], "readwrite").objectStore(STORE);
-  var request = objectStore.get(id);
+  var request = objectStore.get(parseInt(id));
   request.onerror = function(event) {
     // Handle errors!
   };
@@ -140,14 +150,43 @@ function updateChecklistRecordinDB(id, completed) {
     else {
       data.completed_at = null;
     }
-    
+
+    if (pending !== undefined) {
+      data.pending = pending;
+    }
+
     // Put this updated object back into the database.
     var requestUpdate = objectStore.put(data);
     requestUpdate.onerror = function(event) {
       // Do something with the error
     };
     requestUpdate.onsuccess = function(event) {
-      // Success - the data is updated!
+      console.log("success");
     };
   };
+}
+
+function syncChecklist() {
+  var objectStore = db.transaction([STORE]).objectStore(STORE);
+  objectStore.openCursor().onsuccess = function(event) {
+    var cursor = event.target.result;
+    // if there is still another cursor to go, keep runing this code
+    if(cursor) {
+      var clItem = cursor.value
+      if (clItem.pending) {
+        var completed = clItem.completed_at ? true : false;
+        submitChecklistUpdate(clItem.id, completed).then(() => {
+          updateChecklistRecordinDB(clItem.id, completed, false);
+          View.completedUpdate(clItem.id);
+        });
+      }
+
+      // continue on to the next item in the cursor
+      cursor.continue();
+
+      // if there are no more cursor items to iterate through, say so, and exit the function
+    } else {
+      note.innerHTML += '<li>Entries all displayed.</li>';
+    }
+  }
 }
