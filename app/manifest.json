@@ -1,7 +1,7 @@
 {
   "short_name": "Checklist",
   "name": "Checklist from the Knot",
-  "start_url": "/app?launcher=true",
+  "start_url": "https://pkelly.github.io/offline-checklist/app/",
   "icons": [   
     {
       "src": "images/icon.png",
