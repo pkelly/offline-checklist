@@ -35,6 +35,7 @@ window.onload = () => {
 
   taskList = document.getElementById('task-list');
   note = document.getElementById('notifications');
+  View.init();
 }
 
 function displayData() {
@@ -95,10 +96,6 @@ function addData() {
 
       });
     });
-}
-
-function clickUpdate(cb) {
-  updateChecklist(cb.dataset.id, cb.checked);
 }
 
 function updateChecklist(id, completed) {
