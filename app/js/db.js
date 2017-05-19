@@ -65,12 +65,12 @@ function displayData() {
 function addData() {
   var note = document.getElementById('notifications');
 
-  fetch(apiChecklist + '/tasklist?application=', myInit)
+  fetch(apiChecklist + '/tasks?filters=', myInit)
     .then((response) => {
       return response.json();
     })
     .then((data) => {
-      data.buckets[0].tasks.forEach((task) => {
+      data.tasks.forEach((task) => {
         var transaction = db.transaction([STORE], "readwrite");
 
         // report on the success of opening the transaction
@@ -93,7 +93,35 @@ function addData() {
         // Return the mode this transaction has been opened in (should be "readwrite" in this case)
         transaction.mode;
 
-
       });
     });
+}
+
+function clickUpdate(cb) {
+  updateChecklist(cb.dataset.id, cb.checked);
+}
+
+function updateChecklist(id, completed) {
+  var payload = {
+    application: "checklist-ui",
+    completed: completed,
+    id: id
+  };
+
+  var request = {
+    method: 'PUT',
+    headers: myHeaders,
+    mode: 'cors',
+    cache: 'default',
+    body: JSON.stringify(payload)
+  };
+  if (navigator.onLine) {
+    fetch(apiChecklist + '/tasks/' + id + '?application=checklists-ui', request).then(() => {
+      console.log('live');
+    });
+  }
+  else {
+    console.log('cached');
+  }
+
 }
