@@ -5,12 +5,19 @@ View = {
     document.getElementById('task-list').addEventListener('click', function(event) {
         var clickedEl = event.target;
         if(clickedEl.tagName === 'INPUT') {
-          console.log("Item checked:", clickedEl.checked);
-          clickedEl.className = clickedEl.checked ? "checked": "";
-          updateChecklist(clickedEl.dataset.id, clickedEl.checked);
-
+          View.updateState(clickedEl);
         }
     });
+  },
+  updateState: function(el) {
+    var id = el.dataset.id;
+    var row = document.getElementById("row-" + id);
+    el.className = el.checked ? "checked": "";
+    updateChecklist(id, el.checked);
+
+    if (!navigator.onLine) {
+      row.className = "pending";
+    }
   },
   getListItem: function(row) {
     var listItem = document.createElement('li');
