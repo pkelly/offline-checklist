@@ -39,6 +39,10 @@ View = {
       checkedClass = "checked";
     }
 
+    if (row.pending) {
+      listItem.className = "pending";
+    }
+
     listItem.innerHTML = "<label>"
       + "<input type='checkbox' data-id=" + row.id + " value='on' " + checked + " class='" + checkedClass + "'>"
       + "<div class='check-circle'>"
