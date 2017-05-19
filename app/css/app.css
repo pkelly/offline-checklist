@@ -27,11 +27,11 @@ li {
 }
 
 li.pending {
-  border-color: #F0532D;
+  border-color: orange;
 }
 
 li.updated {
-  border-color: rgb(28, 164, 32);
+  border-color: green;
 }
 
 li label {
