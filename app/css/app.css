@@ -53,3 +53,16 @@ li input[checked="checked"] + .check-circle {
   margin-bottom: 5px;
 }
 
+#connection-status {
+  height: 2em;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+}
+.status-connected {
+  background-color: green;
+}
+
+.status-disconnected {
+  background-color: orange;
+}
